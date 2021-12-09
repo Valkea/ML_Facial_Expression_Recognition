@@ -66,7 +66,7 @@ def draw_emotion(results, gray):
         try:
             face = cv2.resize(face, (48, 48))
             faces.append(face)
-            face2 = np.array([face/255.0])  # Feature Scaling in the same time
+            face2 = np.array([face / 255.0])  # Feature Scaling in the same time
 
             # Use my model to predict emotion
             preds = model.predict(face2)
@@ -102,30 +102,35 @@ while True:
     # Display last detected faces' labels and preview
     if len(faces) > 0:
 
-        # Print gray faces
-        factor = 2
-        img2 = cv2.merge((faces[0], faces[0], faces[0]))
-        resized = cv2.resize(
-            img2, (48 * factor, 48 * factor), interpolation=cv2.INTER_AREA
-        )
+        for j, face in enumerate(faces):
 
-        pad_x = 10
-        pad_y = 10
-        img[
-            pad_y + 0: pad_y + (48 * factor), pad_x + 0: pad_x + (48 * factor)
-        ] = resized
+            if j > 3:
+                continue
 
-        # Print emotions labels
-        cv2.putText(
-            img,
-            emotions[0],
-            (5, pad_y + resized.shape[0] + 20),
-            font,
-            0.5,
-            text_color,
-            1,
-            cv2.LINE_AA,
-        )
+            # Print gray faces
+            factor = 2
+            img2 = cv2.merge((faces[j], faces[j], faces[j]))
+            resized = cv2.resize(
+                img2, (48 * factor, 48 * factor), interpolation=cv2.INTER_AREA
+            )
+
+            pad_x = 10
+            pad_y = 10 + (48 * factor * j)
+            img[
+                pad_y + 0: pad_y + (48 * factor), pad_x + 0: pad_x + (48 * factor)
+            ] = resized
+
+            # Print emotions labels
+            cv2.putText(
+                img,
+                emotions[j],
+                ((48 * factor) + pad_x + 10, int(pad_y + (resized.shape[0] / 2))),
+                font,
+                0.5,
+                text_color,
+                1,
+                cv2.LINE_AA,
+            )
 
     cv2.imshow("Live", img)
     if cv2.waitKey(5) != -1:
