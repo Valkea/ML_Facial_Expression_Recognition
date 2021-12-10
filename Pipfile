@@ -11,6 +11,9 @@ pillow = "*"
 tensorflow = "*"
 mtcnn-tflite = "*"
 dvc = "*"
+pandas = "*"
+scikit-learn = "*"
+matplotlib = "*"
 
 [dev-packages]
 
