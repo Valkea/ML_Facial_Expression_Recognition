@@ -241,15 +241,15 @@ def load_prepare_data(in_name):
 
 
 def train_model(
-            model,
-            out_name,
-            train_ds,
-            valid_ds,
-            epochs=1,
-            batch_size=64,
-            steps_per_epoch=100,
-            validation_steps=50):
-
+    model,
+    out_name,
+    train_ds,
+    valid_ds,
+    epochs=1,
+    batch_size=64,
+    steps_per_epoch=100,
+    validation_steps=50,
+):
     def rocauc(yTrue, yPred):
         auc = roc_auc_score(yTrue, yPred)
         return auc[0]
@@ -341,10 +341,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--source", type=str, help="The path to the .csv file")
     parser.add_argument("-d", "--destination", type=str, help="The path to model file")
-    parser.add_argument("-b", "--batch_size", type=str, help="The batch_size of the generators and model")
+    parser.add_argument(
+        "-b",
+        "--batch_size",
+        type=str,
+        help="The batch_size of the generators and model",
+    )
     parser.add_argument("-e", "--epochs", type=str, help="The number of epochs trained")
-    parser.add_argument("-se", "--steps_per_epoch", type=str, help="The steps_per_epoch of the model")
-    parser.add_argument("-vs", "--validation_steps", type=str, help="The validation_steps of the model")
+    parser.add_argument(
+        "-se", "--steps_per_epoch", type=str, help="The steps_per_epoch of the model"
+    )
+    parser.add_argument(
+        "-vs", "--validation_steps", type=str, help="The validation_steps of the model"
+    )
     args = parser.parse_args()
 
     # Initialize in/out variables
@@ -372,14 +381,14 @@ if __name__ == "__main__":
     print(">>> LET'S TRAIN A NEW MODEL")
     model, train_ds, valid_ds = load_prepare_data(source)
     history = train_model(
-            model,
-            destination,
-            train_ds,
-            valid_ds,
-            epochs,
-            batch_size,
-            steps_per_epoch,
-            validation_steps
+        model,
+        destination,
+        train_ds,
+        valid_ds,
+        epochs,
+        batch_size,
+        steps_per_epoch,
+        validation_steps,
     )
     summarize_diagnostics(history, "rocauc")
     print(">>> MODEL TRAINING COMPLETE")

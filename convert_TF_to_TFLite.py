@@ -11,7 +11,7 @@ from tensorflow import keras
 def tf_to_tflite(source1, source2):
 
     # Load Tensorflow model
-    model = keras.models.load_model(f'{source1}.h5')
+    model = keras.models.load_model(f"{source1}.h5")
     model.load_weights(f"{source2}.hdf5")
 
     # Convert to TF-Lite
@@ -19,7 +19,7 @@ def tf_to_tflite(source1, source2):
     tflite_model = converter.convert()
 
     # Write to .tflite file
-    with open(f'{source1}.tflite', 'wb') as f_out:
+    with open(f"{source1}.tflite", "wb") as f_out:
         f_out.write(tflite_model)
 
 
@@ -33,8 +33,16 @@ if __name__ == "__main__":
         return os.path.splitext(fname)[0]
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("h5", type=lambda s: file_choices(("h5"), s), help="The path to the .h5 file (model)")
-    parser.add_argument("hdf5", type=lambda s: file_choices(("hdf5"), s), help="The path to the .hdf5 file (weights)")
+    parser.add_argument(
+        "h5",
+        type=lambda s: file_choices(("h5"), s),
+        help="The path to the .h5 file (model)",
+    )
+    parser.add_argument(
+        "hdf5",
+        type=lambda s: file_choices(("hdf5"), s),
+        help="The path to the .hdf5 file (weights)",
+    )
     args = parser.parse_args()
 
     # Train / Evaluate / Save

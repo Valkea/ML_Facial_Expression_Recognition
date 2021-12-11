@@ -61,7 +61,7 @@ def draw_emotion(results, gray):
         v = r["box"]
         x, y, w, h = v[0], v[1], v[2], v[3]
         cv2.rectangle(img, (x, y), (x + w, y + h), rect_color, 2)
-        face = gray[y: y + h, x: x + w]
+        face = gray[y : y + h, x : x + w]
 
         try:
             face = cv2.resize(face, (48, 48))
@@ -117,7 +117,7 @@ while True:
             pad_x = 10
             pad_y = 10 + (48 * factor * j)
             img[
-                pad_y + 0: pad_y + (48 * factor), pad_x + 0: pad_x + (48 * factor)
+                pad_y + 0 : pad_y + (48 * factor), pad_x + 0 : pad_x + (48 * factor)
             ] = resized
 
             # Print emotions labels
