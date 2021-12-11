@@ -14,6 +14,8 @@ dvc = "*"
 pandas = "*"
 scikit-learn = "*"
 matplotlib = "*"
+flask = "*"
+tflite-runtime = "*"
 
 [dev-packages]
 
