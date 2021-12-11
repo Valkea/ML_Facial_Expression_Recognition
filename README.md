@@ -87,7 +87,7 @@ Install the dependencies:
 
 Start Flask development server:
 ```bash
-(venv) >> python fer_server.py
+(venv) >> python fer2013_server.py
 ```
 
 Stop with CTRL+C
@@ -95,15 +95,36 @@ Stop with CTRL+C
 
 ### Tests
 One can check that the server is running by opening the following url:
-http://0.0.0.0:5000/input
+http://0.0.0.0:5000/
 
 Then by submitting various predefined pictures, various results should be displayed.
 
-Alternatively a python script can be used to test from 'outside' of the Flask app.
+For conveniance, I created two scripts in order to test prediction by sending a string (same as in the dataset) or a picture.
+
+#### Test from a space separated string containing 2304 grayscale values
 ```bash
->> python test_image_local.py
+>> python test_from_string.py 
 ```
-This should return an "Happy" label for the given face.
+This should return an "Angry" label for the given face.
+
+
+#### Test from the (above) pictures
+```bash
+>> python test_from_image.py medias/Angry.jpg
+>> python test_from_image.py medias/Fear.jpg
+>> python test_from_image.py medias/Sad.jpg
+>> python test_from_image.py medias/Happy.jpg
+>> python test_from_image.py medias/Neutral.jpg
+```
+
+#### Test from the webcam
+```bash
+>> python test_from_camera.py 
+```
+This script is built using the MTCNN libarary to locate the face in the picture and then the captured face is used to predict expression from my FER model.
+
+It can handle several people at the same time (I tried with up to 3), bu I purposely limited the framerate so that it can used with or without GPU (MTCNN requires a lot of computation).
+
 
 ## Docker
 
@@ -153,10 +174,10 @@ In order to create a new model .bin file, one can use the following command:
 ```bash
 >> python model_training.py
 ```
-This will use the default input and out names. But this can be changed using the -s (--source) and -d (--destination) parameters.
+This will use the default input and out names. But this can be changed using the -s (--source), -d (--destination), -b (--batch_size), -e (--epochs), -se (--steps_per_epoch), -vs (--validation_steps) parameters.
 
 ```bash
->> python model_training.py -s IN_NAME -d OUT_NAME
+>> python model_training.py -s IN_NAME -d OUT_NAME -b 64 -e 100 -se 100 -vs 50
 ```
 
 ## Cloud deployement
