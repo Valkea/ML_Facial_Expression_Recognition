@@ -5,11 +5,11 @@ The goal is to gather some experience in various steps of ML pipeline.
 
 I selected the FER2013 *(Facial Expression Recognition)* dataset in order to try solving an `Image Multiclass Classification` problem. Such a problem is interesting because it tries to classify isolated faces among several expressions (7 on this dataset).
 
-![Angry expression](medias/Angry.png)
-![Fear expression](medias/Fear.png)
-![Sad expression](medias/Sad.png)
-![Happy expression](medias/Happy.png)
-![Neutral expression](medias/Neutral.png)
+![Angry expression](medias/Angry.jpg)
+![Fear expression](medias/Fear.jpg)
+![Sad expression](medias/Sad.jpg)
+![Happy expression](medias/Happy.jpg)
+![Neutral expression](medias/Neutral.jpg)
 
 Such models can probably be used in:
 - the virtual reality or the virtual meetings with avatars (to transcribe the facial expression to the other participants),
