@@ -136,6 +136,9 @@ This script is built using the [MTCNN library](https://github.com/kpzhang93/MTCN
 
 It can handle several people at the same time (up to 3), but I purposely limited the framerate so that it should be usable with or without GPU (MTCNN requires a lot of computation).
 
+![Sad expression](medias/Screenshot_Sad.png)
+![Happy expression](medias/Screenshot_Happy.png)
+
 
 ## Docker
 
