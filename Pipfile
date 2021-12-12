@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 numpy = "*"
-opencv-python = "*"
 tflite-runtime = "*"
 gunicorn = "*"
+opencv-python-headless = "*"
 
 [dev-packages]
 scikit-learn = "*"
@@ -18,7 +18,7 @@ mtcnn = "*"
 dvc = "*"
 matplotlib = "*"
 tensorflow = "*"
-mtcnn-tflite = "*"
+opencv-python = "*"
 
 [requires]
 python_version = "3.8"
