@@ -5,10 +5,8 @@ import os
 import requests
 import argparse
 
-url = "http://0.0.0.0:5000/predict"
 
-
-def send_pic(filepath):
+def send_pic(filepath, url):
     # data = {'url': 'data/Angry01.jpg'}
     files = {"media": open(f"{filepath}.jpg", "rb")}
 
@@ -22,6 +20,8 @@ def send_pic(filepath):
 
 if __name__ == "__main__":
 
+    url = "http://0.0.0.0:5000/predict"
+
     # Initialize arguments parser
     def file_choices(choices, fname):
         ext = os.path.splitext(fname)[1][1:]
@@ -33,7 +33,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "jpg", type=lambda s: file_choices(("jpg"), s), help="The path to the jpg file"
     )
+    parser.add_argument(
+        "--url", type=str, help="The FER13 server URL",
+    )
     args = parser.parse_args()
 
-    print(f"\n>>> SENDING {args.jpg}.jpg\n")
-    send_pic(args.jpg)
+    if(args.url):
+        url = args.url
+
+    print(f"\n>>> SENDING {args.jpg}.jpg TO {url}\n")
+    send_pic(args.jpg, url)
