@@ -46,6 +46,32 @@ https://ml-fer2013.herokuapp.com/input
 >> cd ML_Facial_Expression_Recognition
 ```
 
+## Initialize the virtual environment
+
+Install pipenv if needed
+```bash
+>> pip install pipenv
+```
+
+Start the pipenv virtual environment:
+```bash
+>> pipenv shell
+```
+*(If it doesnt' work due to the Python 3.8 requirement, you can edit the Pipfile with you own version. I think it should work with any Python3 version has I didn't used any specific function or method.)*
+
+Install the dependencies:
+```bash
+(venv) >> pipenv install
+```
+## Clone data and models
+Now let's collect the dataset and the models from the DVC hosting:
+```bash
+(venv) >> dvc pull -r origin
+```
+
+If it doesn't works for you, you can grab the .csv file here:
+- https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data?select=fer2013.tar.gz
+
 ## Running jupyter-notebook
 
 
@@ -68,23 +94,6 @@ The exported model can be tested using:
 
 
 ## Running locally using python scripts
-
-Install pipenv
-```bash
->> pip install pipenv
-```
-
-Start the pipenv virtual environment:
-```bash
->> pipenv shell
-```
-*(If it doesnt' work due to the Python 3.8 requirement, you can edit the Pipfile with you own version. I think it should work with any Python3 version has I didn't used any specific function or method.)*
-
-Install the dependencies:
-```bash
-(venv) >> pipenv install
-```
-
 Start Flask development server:
 ```bash
 (venv) >> python fer2013_server.py
@@ -121,9 +130,11 @@ This should return an "Angry" label for the given face.
 ```bash
 >> python test_from_camera.py 
 ```
-This script is built using the MTCNN libarary to locate the face in the picture and then the captured face is used to predict expression from my FER model.
+Press any key to stop the program.
 
-It can handle several people at the same time (I tried with up to 3), bu I purposely limited the framerate so that it can used with or without GPU (MTCNN requires a lot of computation).
+This script is built using the [MTCNN library](https://github.com/kpzhang93/MTCNN_face_detection_alignment) to locate the face in each picture and then the captured face is used to predict expression from my FER model.
+
+It can handle several people at the same time (up to 3), but I purposely limited the framerate so that it should be usable with or without GPU (MTCNN requires a lot of computation).
 
 
 ## Docker
