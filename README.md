@@ -128,7 +128,7 @@ This should return an "Angry" label for the given face.
 
 #### Test from the webcam
 ```bash
->> python test_from_camera.py 
+>> (venv) python test_from_camera.py 
 ```
 Press any key to stop the program.
 
@@ -180,7 +180,7 @@ And once again, one can run the same test steps explained above... (open input u
 
 ## Create a new model file from python script
 
-In order to create a new model .bin file, one can use the following command:
+In order to create a new model .h5 file and a new weights .hdf5 file, one can use the following command:
 
 ```bash
 >> python model_training.py
@@ -191,11 +191,23 @@ This will use the default input and out names. But this can be changed using the
 >> python model_training.py -s IN_NAME -d OUT_NAME -b 64 -e 100 -se 100 -vs 50
 ```
 
+Then these files can be converted to a .tflite file using the appropriate script:
+```bash
+>> python model_convert_to_TFLite.py MODEL.h5 WEIGHTS.hdf5
+```
+
+
 ## Cloud deployement
 
 In order to deploy this project, I decided to use Heroku.
 
+*Here is a great ressource to help deploying projects on Heroku:*
+https://github.com/nindate/ml-zoomcamp-exercises/blob/main/how-to-use-heroku.md
+
 So if you don't already have an account, you need to create one and to follow the process explained here: https://devcenter.heroku.com/articles/heroku-cli
+
+
+#### Create project on Heroku
 
 Once the Heroku CLI is configured, one can login and create a project using the following commands (or their website):
 
@@ -203,6 +215,9 @@ Once the Heroku CLI is configured, one can login and create a project using the 
 >> heroku login
 >> heroku create ml-fer2013
 ```
+
+
+#### Push project to Heroku
 
 Then, the project can be compiled, published and ran on Heroku, with:
 
@@ -212,10 +227,24 @@ Then, the project can be compiled, published and ran on Heroku, with:
 >> heroku container:release web -a ml-fer2013
 ```
 
-Finally, you can send POST requests to the project url (mine is https://ml-fer2013.herokuapp.com/predict), or check the logs using:
+
+#### Test Heroku's project with a space separated string containing 2304 grayscale values
+```bash
+>> python test_from_string.py --url https://ml-fer2013.herokuapp.com/predict
+```
+This should return an "Angry" label for the given face.
+
+
+#### Test Heroku's project with pictures
+```bash
+>> python test_from_image.py medias/Angry.jpg --url https://ml-fer2013.herokuapp.com/predict
+>> python test_from_image.py medias/Fear.jpg --url https://ml-fer2013.herokuapp.com/predict
+>> python test_from_image.py medias/Sad.jpg --url https://ml-fer2013.herokuapp.com/predict
+>> python test_from_image.py medias/Happy.jpg --url https://ml-fer2013.herokuapp.com/predict
+>> python test_from_image.py medias/Neutral.jpg --url https://ml-fer2013.herokuapp.com/predict
+```
+
+Finally, one can send check the logs using:
 ```bash
 >> heroku logs --tail --app ml-fer2013
 ```
-
-Finally, here is a great ressource to help deploying projects on Heroku:
-https://github.com/nindate/ml-zoomcamp-exercises/blob/main/how-to-use-heroku.md
