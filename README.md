@@ -197,20 +197,22 @@ In order to deploy this project, I decided to use Heroku.
 
 So if you don't already have an account, you need to create one and to follow the process explained here: https://devcenter.heroku.com/articles/heroku-cli
 
-Once the Heroku CLI is configured, one can create a project using the following command (or their website):
+Once the Heroku CLI is configured, one can login and create a project using the following commands (or their website):
 
 ```bash
+>> heroku login
 >> heroku create ml-fer2013
 ```
 
 Then, the project can be compiled, published and ran on Heroku, with:
 
 ```bash
+>> heroku container:login
 >> heroku container:push web -a ml-fer2013
 >> heroku container:release web -a ml-fer2013
 ```
 
-Finally, you can open the project url (mine is https://ml-fer2013.herokuapp.com/input), or check the logs using:
+Finally, you can send POST requests to the project url (mine is https://ml-fer2013.herokuapp.com/predict), or check the logs using:
 ```bash
 >> heroku logs --tail --app ml-fer2013
 ```
