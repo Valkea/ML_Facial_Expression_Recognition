@@ -4,20 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flask = "*"
 numpy = "*"
 opencv-python = "*"
-mtcnn = "*"
-pillow = "*"
-tensorflow = "*"
-mtcnn-tflite = "*"
-dvc = "*"
-pandas = "*"
-scikit-learn = "*"
-matplotlib = "*"
-flask = "*"
 tflite-runtime = "*"
+gunicorn = "*"
 
 [dev-packages]
+scikit-learn = "*"
+pandas = "*"
+pillow = "*"
+mtcnn = "*"
+dvc = "*"
+matplotlib = "*"
+tensorflow = "*"
+mtcnn-tflite = "*"
 
 [requires]
 python_version = "3.8"
