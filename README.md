@@ -78,7 +78,7 @@ If it doesn't works for you, you can grab the .csv file here:
 ```bash
 >> jupyter notebook
 or
->> jupyter notebook notebook.ipynb
+>> jupyter notebook notebook-01-EDA.ipynb
 ```
 
 *(The notebook menu was created using some HTML, and the GitHub preview doesn't render all of them. But it should work locally)
