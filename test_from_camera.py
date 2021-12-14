@@ -14,8 +14,8 @@ detector = MTCNN(min_face_size=200)
 
 
 # --- Load my model ---
-model = load_model("models/model2extra.h5")
-model.load_weights("models/model2extra.epoch84-categorical_accuracy0.64.hdf5")
+model = load_model("models/model1extra.h5")
+model.load_weights("models/model1extra.epoch119-categorical_accuracy0.62.hdf5")
 emotion_names = {
     0: "Angry",
     1: "Fear",
@@ -24,6 +24,7 @@ emotion_names = {
     4: "Surprise",
     5: "Neutral",
 }
+
 # model = load_model("models/model1.h5")
 # model.load_weights("models/model1.epoch96-categorical_accuracy0.61.hdf5")
 # emotion_names = {

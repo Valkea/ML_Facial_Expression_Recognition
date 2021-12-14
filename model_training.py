@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 from tensorflow import keras
-from keras.models import Sequential
+# from keras.models import Sequential
 from keras.layers import (
     Dense,
     Dropout,
@@ -20,11 +20,11 @@ from keras.layers import (
     Conv2D,
     MaxPooling2D,
     BatchNormalization,
-    # Activation,
+    Activation,
 )
 from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import np_utils
-from keras.regularizers import l2
+# from keras.regularizers import l2
 from keras.callbacks import ModelCheckpoint
 
 from sklearn.preprocessing import LabelEncoder
@@ -147,95 +147,58 @@ def load_prepare_data(in_name):
         shuffle=True,
     )
 
-    # Define  Convolutional Neural Network - Architecture 2
-    # from CNN architecture from: https://github.com/gitshanks/fer2013
-    print(">>> DEFINE CNN ARCHITECTURE")
+    # Define Convolutional Neural Network - Architecture 1 - from:
+    # https://www.researchgate.net/publication/351056923_Facial_Expression_Recognition_Using_CNN_with_Keras
 
-    num_features = 64
-
-    model = Sequential()
+    inputs = keras.Input(shape=(img_width, img_height, img_depth))
 
     # 1st convolution
-    model.add(
-        Conv2D(
-            num_features,
-            kernel_size=(3, 3),
-            activation="relu",
-            input_shape=(img_width, img_height, img_depth),
-            data_format="channels_last",
-            kernel_regularizer=l2(0.01),
-        )
-    )
-    model.add(
-        Conv2D(num_features, kernel_size=(3, 3), activation="relu", padding="same")
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(Dropout(0.5))
+    C = Conv2D(filters=64, kernel_size=(3, 3), padding="same")(inputs)
+    B = BatchNormalization()(C)
+    A = Activation("relu")(B)
+    M = MaxPooling2D((2, 2))(A)
+    D = Dropout(0.25)(M)
 
     # 2nd convolution
-    model.add(
-        Conv2D(2 * num_features, kernel_size=(3, 3), activation="relu", padding="same")
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(2 * num_features, kernel_size=(3, 3), activation="relu", padding="same")
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(Dropout(0.5))
+    Con = Conv2D(filters=128, kernel_size=(5, 5), padding="same")(D)
+    Bat = BatchNormalization()(Con)
+    Act = Activation("relu")(Bat)
+    Max = MaxPooling2D((2, 2))(Act)
+    Dro = Dropout(0.25)(Max)
 
     # 3rd convolution
-    model.add(
-        Conv2D(
-            2 * 2 * num_features, kernel_size=(3, 3), activation="relu", padding="same"
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(
-            2 * 2 * num_features, kernel_size=(3, 3), activation="relu", padding="same"
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(Dropout(0.5))
+    Con = Conv2D(filters=512, kernel_size=(3, 3), padding="same")(Dro)
+    Bat = BatchNormalization()(Con)
+    Act = Activation("relu")(Bat)
+    Max = MaxPooling2D((2, 2))(Act)
+    Dro = Dropout(0.25)(Max)
 
     # 4rd convolution
-    model.add(
-        Conv2D(
-            2 * 2 * 2 * num_features,
-            kernel_size=(3, 3),
-            activation="relu",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(
-        Conv2D(
-            2 * 2 * 2 * num_features,
-            kernel_size=(3, 3),
-            activation="relu",
-            padding="same",
-        )
-    )
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(Dropout(0.5))
+    Con = Conv2D(filters=512, kernel_size=(3, 3), padding="same")(Dro)
+    Bat = BatchNormalization()(Con)
+    Act = Activation("relu")(Bat)
+    Max = MaxPooling2D((2, 2))(Act)
+    Dro = Dropout(0.25)(Max)
 
     # Flatten layer
-    model.add(Flatten())
+    Fla = Flatten()(Dro)
 
     # 1st fully connected layer
-    model.add(Dense(2 * 2 * 2 * num_features, activation="relu"))
-    model.add(Dropout(0.4))
-    model.add(Dense(2 * 2 * num_features, activation="relu"))
-    model.add(Dropout(0.4))
-    model.add(Dense(2 * num_features, activation="relu"))
-    model.add(Dropout(0.5))
+    Den = Dense(256)(Fla)
+    Bat = BatchNormalization()(Den)
+    Act = Activation("relu")(Bat)
+    Dro = Dropout(0.25)(Act)
+
+    # 2nd fully connected layer
+    Den = Dense(512)(Dro)
+    Bat = BatchNormalization()(Den)
+    Act = Activation("relu")(Bat)
+    Dro = Dropout(0.25)(Act)
 
     # output for up to 7 expressions (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral).
-    model.add(Dense(num_classes, activation="softmax"))
+    outputs = Dense(num_classes, activation="softmax")(Dro)
+
+    model = keras.Model(inputs, outputs)
 
     return model, train_ds_extra, valid_ds_extra
 

@@ -12,11 +12,11 @@ app = Flask(__name__)
 
 # --- Load TF Model ---
 # print("Load Classification Model")
-# model = load_model("models/model2extra.h5")
-# model.load_weights("models/model2extra.epoch84-categorical_accuracy0.64.hdf5")
+# model = load_model("models/model1extra.h5")
+# model.load_weights("models/model1extra.epoch119-categorical_accuracy0.62.hdf5")
 
 # --- Load TF-Lite model using an interpreter
-interpreter = tflite.Interpreter(model_path="models/model2extra.tflite")
+interpreter = tflite.Interpreter(model_path="models/model1extra.tflite")
 interpreter.allocate_tensors()
 input_index = interpreter.get_input_details()[0]["index"]
 output_index = interpreter.get_output_details()[0]["index"]
