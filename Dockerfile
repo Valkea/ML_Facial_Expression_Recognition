@@ -14,7 +14,7 @@ RUN pipenv install --deploy --system
 
 # Install Python requirements.
 COPY ["fer2013_server.py", "./"]
-COPY ["models/model2extra.tflite", "./models/"]
+COPY ["models/model1extra.tflite", "./models/"]
 
 # Start server
 #ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:$PORT", "fer2013_server:app"]
