@@ -99,7 +99,7 @@ Start Flask development server:
 (venv) >> python fer2013_server.py
 ```
 
-Stop with CTRL+C
+Stop with CTRL+C *(once the tests are done from another terminal...)*
 
 
 ### Tests
@@ -128,8 +128,10 @@ This should return an "Angry" label for the given face.
 
 #### Test from the webcam
 ```bash
->> (venv) python test_from_camera.py 
+(venv) >> python test_from_camera.py 
 ```
+*/!\ You need to run it from the pipenv shell, and OpenCV (used for some picture transformation) may be a problem on some computers*
+
 Press any key to stop the program.
 
 This script is built using the [MTCNN library](https://github.com/kpzhang93/MTCNN_face_detection_alignment) to locate the face in each picture and then the captured face is used to predict expression from my FER model.
