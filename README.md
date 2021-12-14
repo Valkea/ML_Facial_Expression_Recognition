@@ -130,7 +130,7 @@ This should return an "Angry" label for the given face.
 ```bash
 (venv) >> python test_from_camera.py 
 ```
-*/!\ You need to run it from the pipenv shell, and OpenCV (used for some picture transformation) may be a problem on some computers*
+*/!\ You need to run it from the pipenv shell*
 
 Press any key to stop the program.
 
@@ -141,6 +141,13 @@ It can handle several people at the same time (up to 3), but I purposely limited
 ![Sad expression](medias/Screenshot_Sad.png)
 ![Happy expression](medias/Screenshot_Happy.png)
 
+##### Open-CV potential problem
+Sometimes OpenCV needs to be reinstalled *(because it can't find a given function used for image transformation)*, if this happens you can try to reinstall it:
+
+```bash
+(venv) >> pipenv uninstall opencv-python 
+(venv) >> pipenv install opencv-python 
+```
 
 ## Docker
 
