@@ -261,3 +261,11 @@ Finally, one can send check the logs using:
 ```bash
 >> heroku logs --tail --app ml-fer2013
 ```
+
+## Clean the virtual environment
+If you don't need this project anymore, recall to delete the Pipenv environnement before deleting the folder (otherwise it will remain on your computer).
+
+```bash
+(venv) >> exit
+>> pipenv --rm
+```
