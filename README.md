@@ -67,7 +67,8 @@ Install the production + developement dependencies:
 ## Clone data and models
 Now let's collect the dataset and the models from the DVC hosting:
 ```bash
-(venv) >> dvc pull -r origin
+>> dvc remote add origin https://dagshub.com/Valkea/ML_Facial_Expression_Recognition.dvc
+>> dvc pull -r origin
 ```
 
 If it doesn't works for you, you can grab the .csv file here:
